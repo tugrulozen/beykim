@@ -30,11 +30,19 @@ function activeRoute(path) {
   return path;
 }
 
+/** Uygulama adı şirket adıyla başlıyorsa iki kademeli gösterilir: şirket adı (tek satır) + alt başlık; ad rastgele yerden bölünmez */
+function brandText() {
+  const app = AppConfig.appName || '', company = AppConfig.companyName || '';
+  const rest = company && app.startsWith(company) ? app.slice(company.length).trim() : '';
+  if (!rest) return `<div class="brand-name">${esc(app)}</div>`;
+  return `<div class="brand-text"><div class="brand-name brand-name-1">${esc(company)}</div><div class="brand-sub">${esc(rest)}</div></div>`;
+}
+
 export function brandHtml({ compact = false } = {}) {
   return `
     <div class="brand ${compact ? 'brand-compact' : ''}">
       <div class="brand-logo"><img src="${AppConfig.logoUrl}" alt="${esc(AppConfig.companyName)}" /></div>
-      <div class="brand-name">${esc(AppConfig.appName)}</div>
+      ${brandText()}
     </div>`;
 }
 

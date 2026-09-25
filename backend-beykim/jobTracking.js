@@ -50,10 +50,21 @@ const ROLES = [
 // Operasyon süreçleri (İş Takip açılırsa kullanılır): [id, sıra, kod, ad, bölüm, standart gün, renk, ikon]
 const PROCESSES = [
   ['PR1', 1, 'TALEP', 'Gemi Talebi & Onay', 'Teknik', 1, '#64748B', 'ph-clipboard-text'],
-  ['PR2', 2, 'SATIN', 'Satın Alma & Tedarik', 'Satın Alma', 5, '#0EA5E9', 'ph-anchor'],
+  ['PR2', 2, 'SATIN', 'Satın Alma', 'Satın Alma', 5, '#0EA5E9', 'ph-anchor'],
   ['PR3', 3, 'KABUL', 'Mal Kabul & Kontrol', 'Depo', 1, '#8B5CF6', 'ph-package'],
   ['PR4', 4, 'HAZIR', 'Ambar Hazırlık & Paketleme', 'Depo', 1, '#F97316', 'ph-stack'],
   ['PR5', 5, 'SEVK', 'Gemiye Sevkiyat', 'Sevkiyat', 1, '#2563EB', 'ph-boat'],
+];
+
+// Varsayılan birim ağacı: [id, ad, üst birim, sıra, açıklama]
+const UNITS = [
+  ['U1', 'Yönetim', null, 1, 'Genel müdürlük'],
+  ['U2', 'Teknik', 'U1', 2, 'Filo teknik yönetimi ve gemi talepleri'],
+  ['U3', 'Satın Alma', 'U1', 3, 'Satın alma siparişleri ve tedarikçi yönetimi'],
+  ['U4', 'Finans', 'U1', 4, 'Muhasebe, kasa/banka ve cari takip'],
+  ['U5', 'Depo', 'U1', 5, 'Tuzla ve Aliağa ambarları'],
+  ['U6', 'Sevkiyat', 'U5', 6, 'Gemi ikmal ve sevkiyat'],
+  ['U7', 'Kalite & Emniyet', 'U1', 7, 'HSEQ, IMDG ve emniyet malzemesi kontrolü'],
 ];
 
 const JOB_STATUS = { planned: 'Planlandı', in_progress: 'Devam ediyor', blocked: 'Engelli', done: 'Tamamlandı', cancelled: 'İptal' };
@@ -62,7 +73,11 @@ function initSchema(run) {
   run(`CREATE TABLE IF NOT EXISTS jt_roles (id TEXT PRIMARY KEY, label TEXT, description TEXT, permissions TEXT)`);
   // Roller boş kaldıysa (ör. tohumlama atlandıysa) kimse yetkisiz kalmasın: eksik roller eklenir, var olanlara dokunulmaz
   ROLES.forEach(([id, label, desc, perms]) => run(`INSERT OR IGNORE INTO jt_roles (id, label, description, permissions) VALUES (?,?,?,?)`, [id, label, desc, JSON.stringify(perms)]));
+  // Birimler (organizasyon hiyerarşisi): kullanıcıların "bölüm" alanı birim adıyla eşleşir
+  run(`CREATE TABLE IF NOT EXISTS jt_units (id TEXT PRIMARY KEY, name TEXT, parentId TEXT, managerId INTEGER, description TEXT, seq INTEGER DEFAULT 0)`);
+  UNITS.forEach(([id, name, parentId, seq, desc]) => run(`INSERT OR IGNORE INTO jt_units (id, name, parentId, managerId, description, seq) VALUES (?,?,?,NULL,?,?)`, [id, name, parentId, desc, seq]));
   run(`CREATE TABLE IF NOT EXISTS jt_processes (id TEXT PRIMARY KEY, seq INTEGER, code TEXT, name TEXT, dept TEXT, stdDays REAL, color TEXT, icon TEXT)`);
+  run(`UPDATE jt_processes SET name = 'Satın Alma' WHERE id = 'PR2' AND name = 'Satın Alma & Tedarik'`);
   run(`CREATE TABLE IF NOT EXISTS jt_projects (id TEXT PRIMARY KEY, code TEXT, name TEXT, customerId TEXT, customerName TEXT, managerId INTEGER,
     status TEXT, priority TEXT, startDate TEXT, dueDate TEXT, description TEXT, createdAt TEXT)`);
   run(`CREATE TABLE IF NOT EXISTS jt_orders (id TEXT PRIMARY KEY, orderNo TEXT, projectId TEXT, customerId TEXT, customerName TEXT, orderDate TEXT, dueDate TEXT,
@@ -742,6 +757,63 @@ module.exports = function mountJobTracking({ app, dbAll, dbGet, dbRun, sec, hash
     res.json({ success: true, message: `Rol silindi: ${r.label}` });
   }));
 
+  // ---- birimler ve hiyerarşi ----
+  const unitText = (v, n) => String(v == null ? '' : v).replace(/[<>]/g, '').trim().slice(0, n);
+  app.get('/api/jt/units', need('jt.view'), wrap(async (_req, res) => {
+    const units = await dbAll(`SELECT un.*, u.name AS managerName, u.title AS managerTitle FROM jt_units un LEFT JOIN users u ON u.id = un.managerId ORDER BY un.seq, un.name`);
+    const users = await dbAll(`SELECT u.id, u.name, u.title, u.department, u.role, r.label AS roleLabel FROM users u LEFT JOIN jt_roles r ON r.id = u.role WHERE u.active != 0 ORDER BY u.name`);
+    const known = new Set(units.map((x) => x.name.toLowerCase()));
+    res.json({ success: true, data: {
+      units: units.map((x) => ({ ...x, members: users.filter((u) => (u.department || '').toLowerCase() === x.name.toLowerCase()) })),
+      unassigned: users.filter((u) => !known.has((u.department || '').toLowerCase())),
+    } });
+  }));
+  async function unitBody(b, current) {
+    const name = b.name != null ? unitText(b.name, 60) : current.name;
+    if (name.length < 2) return { error: 'Birim adı en az 2 karakter olmalı.' };
+    const clash = await dbGet(`SELECT id FROM jt_units WHERE LOWER(name) = LOWER(?) AND id != ?`, [name, current.id || '']);
+    if (clash) return { error: 'Bu adla bir birim zaten var.', code: 409 };
+    const parentId = b.parentId !== undefined ? (b.parentId || null) : current.parentId || null;
+    if (parentId) {
+      if (!(await dbGet(`SELECT id FROM jt_units WHERE id = ?`, [parentId]))) return { error: 'Üst birim bulunamadı.' };
+      // döngü kontrolü: birim kendi alt birimine bağlanamaz
+      const all = await dbAll(`SELECT id, parentId FROM jt_units`);
+      const up = new Map(all.map((x) => [x.id, x.parentId]));
+      for (let p = parentId, i = 0; p && i < 100; p = up.get(p), i++) if (p === current.id) return { error: 'Birim kendi alt birimine bağlanamaz.' };
+    }
+    let managerId = b.managerId !== undefined ? (b.managerId ? Number(b.managerId) : null) : current.managerId || null;
+    if (managerId && !(await dbGet(`SELECT id FROM users WHERE id = ?`, [managerId]))) return { error: 'Birim yöneticisi bulunamadı.' };
+    const description = b.description != null ? unitText(b.description, 200) : current.description || '';
+    return { name, parentId, managerId, description };
+  }
+  app.post('/api/jt/units', need('jt.users.manage'), wrap(async (req, res) => {
+    const v = await unitBody(req.body || {}, { name: '' });
+    if (v.error) return res.status(v.code || 400).json({ success: false, message: v.error });
+    const id = 'u-' + Date.now().toString(36);
+    const seq = ((await dbGet(`SELECT MAX(seq) AS m FROM jt_units`)).m || 0) + 1;
+    await dbRun(`INSERT INTO jt_units (id, name, parentId, managerId, description, seq) VALUES (?,?,?,?,?,?)`, [id, v.name, v.parentId, v.managerId, v.description, seq]);
+    res.json({ success: true, message: `Birim oluşturuldu: ${v.name}`, data: { id } });
+  }));
+  app.put('/api/jt/units/:id', need('jt.users.manage'), wrap(async (req, res) => {
+    const u = await dbGet(`SELECT * FROM jt_units WHERE id = ?`, [req.params.id]);
+    if (!u) return res.status(404).json({ success: false, message: 'Birim bulunamadı' });
+    const v = await unitBody(req.body || {}, u);
+    if (v.error) return res.status(v.code || 400).json({ success: false, message: v.error });
+    await dbRun(`UPDATE jt_units SET name = ?, parentId = ?, managerId = ?, description = ? WHERE id = ?`, [v.name, v.parentId, v.managerId, v.description, u.id]);
+    // ad değiştiyse o birimdeki kullanıcıların bölümü de güncellenir
+    if (v.name !== u.name) await dbRun(`UPDATE users SET department = ? WHERE LOWER(department) = LOWER(?)`, [v.name, u.name]);
+    res.json({ success: true, message: 'Birim güncellendi.' });
+  }));
+  app.delete('/api/jt/units/:id', need('jt.users.manage'), wrap(async (req, res) => {
+    const u = await dbGet(`SELECT * FROM jt_units WHERE id = ?`, [req.params.id]);
+    if (!u) return res.status(404).json({ success: false, message: 'Birim bulunamadı' });
+    if ((await dbGet(`SELECT COUNT(*) AS n FROM jt_units WHERE parentId = ?`, [u.id])).n) return res.status(400).json({ success: false, message: 'Bu birimin alt birimleri var; önce onları taşıyın veya silin.' });
+    const n = (await dbGet(`SELECT COUNT(*) AS n FROM users WHERE LOWER(department) = LOWER(?) AND active != 0`, [u.name])).n;
+    if (n) return res.status(400).json({ success: false, message: `Bu birimde ${n} kullanıcı var; önce kullanıcıları başka birime taşıyın.` });
+    await dbRun(`DELETE FROM jt_units WHERE id = ?`, [u.id]);
+    res.json({ success: true, message: `Birim silindi: ${u.name}` });
+  }));
+
   /** ERP satış kaydı sonrası: sipariş bağlantısını doğrula (server.js /api/sales tarafından çağrılır) */
   return { invalidateRoles, rolePerms, enrichOrders, performanceRows, computeAlerts, version: VERSION };
 };
@@ -749,4 +821,5 @@ module.exports = function mountJobTracking({ app, dbAll, dbGet, dbRun, sec, hash
 module.exports.initSchema = initSchema;
 module.exports.ROLES = ROLES;
 module.exports.PROCESSES = PROCESSES;
+module.exports.UNITS = UNITS;
 module.exports.PERMISSIONS = PERMISSIONS;

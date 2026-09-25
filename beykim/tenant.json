@@ -23,7 +23,8 @@
     "secondary": "#FFFFFF",
     "secondaryLight": "#EBEBEB",
     "secondaryDark": "#E0E0E0",
-    "surface": "#640207"
+    "surface": "#640207",
+    "brandAccents": true
   },
   "modules": {
     "transfer": {
@@ -47,6 +48,13 @@
       "icon": "ph-clipboard-text",
       "description": "Ambar ve raf sayımı, sayım farkları"
     },
+    "stockDetail": {
+      "enabled": true,
+      "label": "Malzeme Stok Detayı",
+      "section": "warehouse",
+      "icon": "ph-package",
+      "description": "Malzeme kartı, ambar dağılımı, mal kabul / stok ekleme ve stok yönetimi"
+    },
     "sales": {
       "enabled": true,
       "label": "Gemiye Sevkiyat",
@@ -63,10 +71,17 @@
     },
     "purchase": {
       "enabled": true,
-      "label": "Satın Alma & Tedarik",
+      "label": "Satın Alma",
       "section": "supply",
       "icon": "ph-anchor",
       "description": "Gemi taleplerinden satın alma siparişi ve mal kabul"
+    },
+    "suppliers": {
+      "enabled": true,
+      "label": "Tedarikçiler",
+      "section": "supply",
+      "icon": "ph-buildings",
+      "description": "Gemi malzemesi tedarikçileri, kategori, vade ve açık siparişler"
     },
     "purchase-old": {
       "enabled": false,
@@ -133,7 +148,7 @@
     },
     {
       "id": "supply",
-      "title": "Tedarik"
+      "title": "Satın Alma"
     },
     {
       "id": "finance",
@@ -237,17 +252,21 @@
   "purchaseConfig": {
     "requireApproval": true,
     "requireInvoiceForReceive": true,
-    "allowPartialReceive": true
+    "allowPartialReceive": true,
+    "maritime": true
   },
+  "notes": "Beykim: ayrı backend (backend-beykim, port 4003, beykim.db, BASE_PATH /beykim/servis). Satış yerine yalnız Gemiye Sevkiyat (sevk noktası = gemiler GM..). İş takip/üretim/hammadde/reçete kapalı.",
   "logo": "logo.jpg",
   "logoZoom": 200,
   "moduleOrder": [
     "sales",
+    "stockDetail",
     "transfer",
     "vehicleUnload",
     "stockCount",
     "barcode",
     "purchase",
+    "suppliers",
     "finance",
     "reports",
     "copilot",
