@@ -1,0 +1,14 @@
+BEYKİM DENİZCİLİK — ilk kullanıcı şifreleri (giriş sonrası her kullanıcı kendi şifresini değiştirmelidir).
+Bu dosyayı paylaşmayın; dağıtımdan sonra silin.
+
+admin              1234   Yönetici (admin)
+deniz.aydin        deniz123   Deniz Aydın (finance)
+murat.ozkan        murat123   Murat Özkan (manager)
+selin.kurt         selin123   Selin Kurt (planner)
+hakan.yildiz       hakan123   Hakan Yıldız (supervisor)
+ali.demir          ali123   Ali Demir (operator)
+emre.sahin         emre123   Emre Şahin (operator)
+serkan.bulut       serkan123   Serkan Bulut (logistics)
+canan.ergin        canan123   Canan Ergin (quality)
+inceleme           oJiRfQk0zueD7a   İnceleme Hesabı (reviewer)
+orhan.tekin        orhan123   Orhan Tekin (viewer)

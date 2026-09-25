@@ -1,0 +1,285 @@
+{
+  "slug": "beykim",
+  "companyName": "Beykim Denizcilik",
+  "appName": "Beykim Denizcilik Depo & Filo İkmal",
+  "support": {
+    "title": "Beykim Destek",
+    "text": "Depo ve gemi ikmal sistemiyle ilgili yardıma mı ihtiyacınız var?",
+    "phone": "0 (212) 274-2958",
+    "email": "info@beykim.com.tr",
+    "website": "https://www.beykim.com.tr"
+  },
+  "shortName": "Beykim Depo",
+  "appDescription": "Gemi ikmal, yedek parça ve ambar yönetim sistemi",
+  "api": {
+    "erpApiUrl": "https://codendtec.com/beykim/servis/api",
+    "apiTimeout": 10000,
+    "useMockApi": false
+  },
+  "theme": {
+    "primary": "#8B0D04",
+    "primaryLight": "#B81105",
+    "primaryDark": "#500702",
+    "secondary": "#FFFFFF",
+    "secondaryLight": "#EBEBEB",
+    "secondaryDark": "#E0E0E0",
+    "surface": "#640207"
+  },
+  "modules": {
+    "transfer": {
+      "enabled": true,
+      "label": "Ambarlar Arası Transfer",
+      "section": "warehouse",
+      "icon": "ph-arrows-left-right",
+      "description": "Tuzla ve Aliağa ambarları arasında malzeme transferi"
+    },
+    "vehicleUnload": {
+      "enabled": true,
+      "label": "Araçtan Mal Kabul",
+      "section": "warehouse",
+      "icon": "ph-truck",
+      "description": "Tedarikçi aracından gelen malzemenin ambara girişi"
+    },
+    "stockCount": {
+      "enabled": true,
+      "label": "Ambar Sayımı",
+      "section": "warehouse",
+      "icon": "ph-clipboard-text",
+      "description": "Ambar ve raf sayımı, sayım farkları"
+    },
+    "sales": {
+      "enabled": true,
+      "label": "Gemiye Sevkiyat",
+      "section": "shipping",
+      "icon": "ph-boat",
+      "description": "Filo gemilerine malzeme ikmali ve sevk kaydı"
+    },
+    "barcode": {
+      "enabled": true,
+      "label": "Barkod Oluştur",
+      "section": "shipping",
+      "icon": "ph-barcode",
+      "description": "Malzeme ve sevk etiketleri için barkod oluşturma"
+    },
+    "purchase": {
+      "enabled": true,
+      "label": "Satın Alma & Tedarik",
+      "section": "supply",
+      "icon": "ph-anchor",
+      "description": "Gemi taleplerinden satın alma siparişi ve mal kabul"
+    },
+    "purchase-old": {
+      "enabled": false,
+      "label": "Hızlı Alış",
+      "section": "supply"
+    },
+    "finance": {
+      "enabled": true,
+      "label": "Finans",
+      "section": "finance",
+      "description": "Navlun alacakları, gemi finansmanı, bunker ve liman giderleri"
+    },
+    "rawMaterials": {
+      "enabled": false,
+      "label": "Hammadde Takibi",
+      "section": "other"
+    },
+    "recipes": {
+      "enabled": false,
+      "label": "Ürün Reçeteleri",
+      "section": "other"
+    },
+    "production": {
+      "enabled": false,
+      "label": "Üretim Girişi",
+      "section": "other"
+    },
+    "jobTracking": {
+      "enabled": false,
+      "label": "İş & Durum Takip",
+      "section": "other"
+    },
+    "copilot": {
+      "enabled": true,
+      "label": "AI CoPilot",
+      "section": "ai"
+    },
+    "reports": {
+      "enabled": true,
+      "label": "Raporlar & Hareketler",
+      "section": "other",
+      "icon": "ph-chart-bar",
+      "description": "Ambar bakiyesi, stok detayı ve operasyon hareketleri"
+    },
+    "settings": {
+      "enabled": true,
+      "label": "Ayarlar",
+      "section": "other"
+    },
+    "help": {
+      "enabled": true,
+      "label": "Yardım",
+      "section": "other"
+    }
+  },
+  "sections": [
+    {
+      "id": "warehouse",
+      "title": "Ambar İşlemleri"
+    },
+    {
+      "id": "shipping",
+      "title": "Gemi İkmal & Sevkiyat"
+    },
+    {
+      "id": "supply",
+      "title": "Tedarik"
+    },
+    {
+      "id": "finance",
+      "title": "Finans"
+    },
+    {
+      "id": "ai",
+      "title": "Yapay Zeka Asistan"
+    },
+    {
+      "id": "other",
+      "title": "Raporlar & Diğer"
+    }
+  ],
+  "salesTypes": [
+    {
+      "id": "sevkiyat",
+      "enabled": true,
+      "label": "Gemiye Sevkiyat",
+      "desc": "Filo gemilerine yedek parça, yağ, boya ve kumanya ikmali",
+      "icon": "ph-boat",
+      "color": "#8B0D04",
+      "badge": "İKMAL"
+    },
+    {
+      "id": "toptan",
+      "enabled": false
+    },
+    {
+      "id": "perakende",
+      "enabled": false
+    },
+    {
+      "id": "ihracat",
+      "enabled": false
+    },
+    {
+      "id": "b2b",
+      "enabled": false
+    },
+    {
+      "id": "iade",
+      "enabled": false
+    }
+  ],
+  "reportTypes": [
+    {
+      "id": "seriAmbar",
+      "enabled": true,
+      "label": "Ambar Bakiye"
+    },
+    {
+      "id": "stokDetay",
+      "enabled": true,
+      "label": "Malzeme Stok Detayı"
+    },
+    {
+      "id": "sonIslemler",
+      "enabled": true,
+      "label": "Operasyon Hareketleri"
+    },
+    {
+      "id": "cekiListesi",
+      "enabled": true,
+      "label": "Sevkiyat Çeki Listesi"
+    },
+    {
+      "id": "seriDetay",
+      "enabled": true,
+      "label": "Seri / Barkod Detay"
+    },
+    {
+      "id": "musteriBakiye",
+      "enabled": false,
+      "label": "Müşteri Bakiye"
+    }
+  ],
+  "priceTypes": [
+    "MT",
+    "MP",
+    "IT",
+    "CT"
+  ],
+  "currencies": [
+    {
+      "code": "USD",
+      "symbol": "$",
+      "label": "Dolar"
+    },
+    {
+      "code": "EUR",
+      "symbol": "€",
+      "label": "Euro"
+    },
+    {
+      "code": "TRY",
+      "symbol": "₺",
+      "label": "TL"
+    }
+  ],
+  "purchaseConfig": {
+    "requireApproval": true,
+    "requireInvoiceForReceive": true,
+    "allowPartialReceive": true
+  },
+  "logo": "logo.jpg",
+  "logoZoom": 200,
+  "moduleOrder": [
+    "sales",
+    "transfer",
+    "vehicleUnload",
+    "stockCount",
+    "barcode",
+    "purchase",
+    "finance",
+    "reports",
+    "copilot",
+    "settings",
+    "help",
+    "purchase-old",
+    "rawMaterials",
+    "recipes",
+    "production",
+    "jobTracking"
+  ],
+  "logoOffsetX": 0,
+  "logoOffsetY": 0,
+  "barcode": {
+    "prefix": "2",
+    "defaultFormat": "ean13",
+    "defaultSize": "50x30",
+    "showCompany": false,
+    "printer": {
+      "mode": "browser",
+      "language": "zpl",
+      "dpi": 203
+    }
+  },
+  "updatedAt": "2026-09-25T12:22:26.482Z",
+  "storagePrefix": "beykim",
+  "terms": {
+    "sale": "Sevkiyat",
+    "sales": "sevkiyat",
+    "saleIcon": "ph-boat",
+    "warehouses": "ambarlar arası",
+    "customer": "Gemi",
+    "depotOf": "ambarlarının"
+  }
+}

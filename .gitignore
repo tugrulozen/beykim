@@ -1,0 +1,5 @@
+node_modules/
+*.zip
+*.db
+.auth-secret
+
