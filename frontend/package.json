@@ -1,0 +1,25 @@
+{
+  "name": "depo-takip-mobil-erp",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Modüler Depo Takip ve ERP Mobil Uygulaması - White Label",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "build:finance": "node scripts/build-finance.mjs",
+    "build:taskflow": "node scripts/build-taskflow.mjs",
+    "preview": "vite preview",
+    "panel": "node panel/server.js"
+  },
+  "devDependencies": {
+    "@phosphor-icons/web": "^2.1.2",
+    "vite": "^5.4.0"
+  },
+  "dependencies": {
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@zxing/browser": "^0.2.1",
+    "@zxing/library": "^0.23.0"
+  }
+}

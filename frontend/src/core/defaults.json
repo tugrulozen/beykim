@@ -1,0 +1,354 @@
+{
+  "companyName": "Şirket",
+  "appName": "Mobil WMS",
+  "shortName": "Mobil WMS",
+  "appDescription": "AI Destekli Mobil Depo ve Operasyon Yönetim Sistemi",
+  "version": "1.0.0",
+  "logo": "",
+  "storagePrefix": "",
+  "api": {
+    "erpApiUrl": "/api",
+    "apiTimeout": 10000,
+    "useMockApi": true
+  },
+  "theme": {
+    "primary": "#2F5BEA",
+    "primaryLight": "#4C74F0",
+    "primaryDark": "#1D3FB0",
+    "secondary": "#F2A516",
+    "secondaryLight": "#F7C04F",
+    "secondaryDark": "#C4830A",
+    "surface": "#0F2240"
+  },
+  "support": {
+    "title": "Destek",
+    "text": "Depo takip sistemi kullanımıyla ilgili yardıma mı ihtiyacınız var?",
+    "phone": "",
+    "email": "",
+    "website": ""
+  },
+  "sections": [
+    {
+      "id": "warehouse",
+      "title": "Depo İşlemleri"
+    },
+    {
+      "id": "trade",
+      "title": "Satış & Alış İşlemleri"
+    },
+    {
+      "id": "production",
+      "title": "Üretim İşlemleri"
+    },
+    {
+      "id": "ai",
+      "title": "Yapay Zeka Asistan"
+    },
+    {
+      "id": "other",
+      "title": "Diğer İşlemler"
+    }
+  ],
+  "modules": {
+    "transfer": {
+      "enabled": true,
+      "label": "Depolar Arası",
+      "icon": "ph-arrows-left-right",
+      "route": "transfer",
+      "color": "transfer",
+      "section": "warehouse",
+      "description": "Depolar arası stok transferi"
+    },
+    "vehicleUnload": {
+      "enabled": false,
+      "label": "Araba'dan",
+      "icon": "ph-truck",
+      "route": "vehicle-unload",
+      "color": "vehicle",
+      "section": "warehouse",
+      "description": "Araçtan depoya mal boşaltma (Pasif)"
+    },
+    "sales": {
+      "enabled": true,
+      "label": "Satış",
+      "icon": "ph-storefront",
+      "route": "sales",
+      "color": "sales",
+      "section": "trade",
+      "description": "Satış işlemleri"
+    },
+    "purchase": {
+      "enabled": true,
+      "label": "Satın Alma",
+      "icon": "ph-shopping-cart",
+      "route": "purchase-module",
+      "color": "purchase",
+      "section": "trade",
+      "description": "Tedarikçi ve sipariş (PO) yönetimi"
+    },
+    "suppliers": {
+      "enabled": false,
+      "label": "Tedarikçiler",
+      "icon": "ph-buildings",
+      "route": "suppliers",
+      "color": "purchase",
+      "section": "trade",
+      "description": "Tedarikçi kartları, kategori ve vade bilgileri"
+    },
+    "purchase-old": {
+      "enabled": false,
+      "label": "Hızlı Alış",
+      "icon": "ph-download-simple",
+      "route": "purchase",
+      "color": "purchase",
+      "section": "trade",
+      "description": "Hızlı mal kabul işlemleri (Pasif)"
+    },
+    "rawMaterials": {
+      "enabled": true,
+      "label": "Hammadde Takibi",
+      "icon": "ph-flask",
+      "route": "raw-materials",
+      "color": "raw-materials",
+      "section": "production",
+      "description": "Hammadde stok takibi"
+    },
+    "recipes": {
+      "enabled": true,
+      "label": "Ürün Reçeteleri",
+      "icon": "ph-book-open",
+      "route": "recipes",
+      "color": "recipes",
+      "section": "production",
+      "description": "Ürün reçeteleri (BOM)"
+    },
+    "production": {
+      "enabled": true,
+      "label": "Üretim Girişi",
+      "icon": "ph-factory",
+      "route": "production",
+      "color": "production",
+      "section": "production",
+      "description": "Reçeteye göre üretim girişi"
+    },
+    "jobTracking": {
+      "enabled": false,
+      "label": "İş & Durum Takip",
+      "icon": "ph-kanban",
+      "route": "jobs",
+      "color": "jobs",
+      "section": "production",
+      "description": "Proje, sipariş ve iş takibi; süreç durumu, kişi performansı, yetkilendirme ve gecikme uyarıları (İş Takip destekli ayrı backend gerekir)"
+    },
+    "copilot": {
+      "enabled": true,
+      "label": "AI CoPilot",
+      "icon": "ph-sparkle",
+      "route": "copilot",
+      "color": "copilot",
+      "section": "ai",
+      "description": "Yapay zeka asistanı",
+      "display": "banner"
+    },
+    "barcode": {
+      "enabled": false,
+      "label": "Barkod Oluştur",
+      "icon": "ph-barcode",
+      "route": "barcode",
+      "color": "stock-count",
+      "section": "warehouse",
+      "description": "Ürün + barkod oluştur, etiket boyutu seç, yazıcıdan yazdır"
+    },
+    "finance": {
+      "enabled": false,
+      "label": "Finans",
+      "icon": "ph-bank",
+      "route": "finance",
+      "color": "purchase",
+      "section": "trade",
+      "description": "Kasa/banka, kredi, müşteri ve tedarikçi bakiyeleri, çek/senet ve vade hatırlatmaları (ERP'ye bağlı; finans destekli backend gerekir)"
+    },
+    "stockCount": {
+      "enabled": true,
+      "label": "Stok Sayım",
+      "icon": "ph-clipboard-text",
+      "route": "stock-count",
+      "color": "stock-count",
+      "section": "other",
+      "description": "Barkodlu stok sayımı"
+    },
+    "stockDetail": {
+      "enabled": false,
+      "label": "Stok Detay",
+      "icon": "ph-package",
+      "route": "stock-detail",
+      "color": "stock",
+      "section": "warehouse",
+      "description": "Ürün kartı, depo dağılımı, stok ekleme ve stok yönetimi"
+    },
+    "reports": {
+      "enabled": true,
+      "label": "Raporlar",
+      "icon": "ph-chart-bar",
+      "route": "reports",
+      "color": "reports",
+      "section": "other",
+      "description": "Rapor ekranları"
+    },
+    "settings": {
+      "enabled": true,
+      "label": "Ayarlar",
+      "icon": "ph-gear",
+      "route": "settings",
+      "color": "settings",
+      "section": "other",
+      "description": "Uygulama ayarları"
+    },
+    "help": {
+      "enabled": true,
+      "label": "Yardım",
+      "icon": "ph-question",
+      "route": "help",
+      "color": "help",
+      "section": "other",
+      "description": "Yardım ve destek ekranı"
+    }
+  },
+  "barcode": {
+    "prefix": "2",
+    "defaultFormat": "ean13",
+    "defaultSize": "50x30",
+    "showCompany": false,
+    "printer": {
+      "mode": "browser",
+      "language": "zpl",
+      "dpi": 203
+    }
+  },
+  "salesTypes": [
+    {
+      "id": "toptan",
+      "enabled": true,
+      "label": "Toptan Satış",
+      "desc": "Büyük miktarlı satış işlemleri",
+      "icon": "ph-factory",
+      "color": "#4CAF50",
+      "badge": "TOPTAN"
+    },
+    {
+      "id": "perakende",
+      "enabled": true,
+      "label": "Perakende Satış",
+      "desc": "Bireysel müşteri satış işlemleri",
+      "icon": "ph-buildings",
+      "color": "#5C6BC0",
+      "badge": "PERAKENDE"
+    },
+    {
+      "id": "ihracat",
+      "enabled": true,
+      "label": "İhracat Satış",
+      "desc": "Uluslararası satış işlemleri",
+      "icon": "ph-globe-hemisphere-west",
+      "color": "#0097A7",
+      "badge": "İHRACAT"
+    },
+    {
+      "id": "b2b",
+      "enabled": true,
+      "label": "İşletmeler Arası Satış",
+      "desc": "B2B satış ve transfer işlemleri",
+      "icon": "ph-briefcase",
+      "color": "#FFA726",
+      "badge": "B2B"
+    },
+    {
+      "id": "iade",
+      "enabled": true,
+      "label": "Satış İade",
+      "desc": "Satış iade işlemleri",
+      "icon": "ph-arrow-u-down-left",
+      "color": "#EF5350",
+      "badge": "İADE"
+    }
+  ],
+  "reportTypes": [
+    {
+      "id": "seriAmbar",
+      "enabled": true,
+      "label": "Seri Ambar Bakiye",
+      "icon": "ph-clipboard-text",
+      "color": "blue",
+      "route": "serial-warehouse-balance"
+    },
+    {
+      "id": "seriDetay",
+      "enabled": true,
+      "label": "Seri Detay",
+      "icon": "ph-magnifying-glass",
+      "color": "green",
+      "route": "serial-detail"
+    },
+    {
+      "id": "cekiListesi",
+      "enabled": true,
+      "label": "Çeki Listesi",
+      "icon": "ph-note",
+      "color": "orange",
+      "route": "packing-list"
+    },
+    {
+      "id": "stokDetay",
+      "enabled": true,
+      "label": "Stok Detay",
+      "icon": "ph-tag",
+      "color": "orange",
+      "route": "stock-detail"
+    },
+    {
+      "id": "musteriBakiye",
+      "enabled": true,
+      "label": "Müşteri Bakiye",
+      "icon": "ph-credit-card",
+      "color": "purple",
+      "route": "customer-balance"
+    },
+    {
+      "id": "sonIslemler",
+      "enabled": true,
+      "label": "Son İşlemler",
+      "icon": "ph-clock-counter-clockwise",
+      "color": "blue",
+      "route": "activity"
+    }
+  ],
+  "priceTypes": [
+    "MT",
+    "MP",
+    "IT",
+    "CT"
+  ],
+  "currencies": [
+    {
+      "code": "USD",
+      "symbol": "$",
+      "label": "Dolar"
+    },
+    {
+      "code": "EUR",
+      "symbol": "€",
+      "label": "Euro"
+    },
+    {
+      "code": "TRY",
+      "symbol": "₺",
+      "label": "TL"
+    }
+  ],
+  "language": "tr",
+  "purchaseConfig": {
+    "requireApproval": true,
+    "requireInvoiceForReceive": true,
+    "allowPartialReceive": true
+  }
+}

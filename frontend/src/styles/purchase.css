@@ -1,0 +1,93 @@
+/* ============================================
+   SATIN ALMA v2 + TEDARİKÇİLER (denizcilik düzeni dahil)
+   ============================================ */
+.pm-tab-link { text-decoration: none; margin-left: auto; color: var(--text-secondary); }
+.pm2-kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
+.pm2-kpi { display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 16px; background: var(--surface, #fff); border: 1px solid var(--border-light); box-shadow: var(--shadow-card); min-width: 0; }
+.pm2-kpi-ic { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; flex: none; font-size: 20px; color: var(--k); background: color-mix(in srgb, var(--k) 13%, transparent); }
+.pm2-kpi b { display: block; font-size: 20px; line-height: 1.15; color: var(--text-primary); overflow-wrap: anywhere; }
+.pm2-kpi small { display: block; font-size: 12px; color: var(--text-secondary); }
+.pm2-toolbar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
+.pm2-search { flex: 1 1 260px; min-width: 0; }
+.pm2-vessel-filter { flex: 0 1 200px; min-width: 150px; }
+.pm2-toolbar .btn { margin-left: auto; white-space: nowrap; }
+.pm2-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 12px; }
+.pm2-card { cursor: pointer; display: grid; gap: 8px; margin: 0 !important; border-left: 4px solid transparent; }
+.pm2-card.is-late { border-left-color: #D93A3A; }
+.pm2-card:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.pm2-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.pm2-id { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-weight: 700; font-size: 14px; color: var(--text-primary); }
+.pm2-urg { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 20px; color: var(--u); background: color-mix(in srgb, var(--u) 12%, transparent); }
+.pm2-supplier { font-size: 13px; color: var(--text-secondary); font-weight: 600; }
+.pm2-chips, .pm2-sup-foot { display: flex; flex-wrap: wrap; gap: 6px; }
+.pm2-chip { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; padding: 3px 9px; border-radius: 8px; background: var(--bg-secondary, #f3f4f8); color: var(--text-secondary); border: 1px solid var(--border-light); }
+.pm2-vessel { color: var(--primary); background: color-mix(in srgb, var(--primary) 8%, transparent); border-color: color-mix(in srgb, var(--primary) 20%, transparent); font-weight: 600; }
+.pm2-meta { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; font-size: 12px; color: var(--text-secondary); }
+.pm2-meta .pm2-total { margin-left: auto; font-size: 15px; color: var(--text-primary); }
+.pm2-late { color: #D93A3A; font-weight: 700; }
+.pm2-progress-txt { font-size: 11px; color: var(--text-secondary); }
+.pm2-detail-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 16px; margin-bottom: 12px; border-left: 4px solid var(--primary); }
+.pm2-detail-head.is-late { border-left-color: #D93A3A; }
+.pm2-detail-total { display: grid; justify-items: end; gap: 6px; }
+.pm2-detail-total b { font-size: 20px; color: var(--primary); }
+.pm2-flow { display: flex; align-items: center; margin: 4px 0 14px; padding: 12px 14px; border-radius: 16px; background: var(--surface, #fff); border: 1px solid var(--border-light); }
+.pm2-step { display: grid; justify-items: center; gap: 4px; flex: none; color: var(--text-secondary); }
+.pm2-step span { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--bg-secondary, #f3f4f8); border: 2px solid var(--border-light); font-size: 16px; }
+.pm2-step.done span { background: var(--primary); border-color: var(--primary); color: #fff; }
+.pm2-step.half span { background: color-mix(in srgb, var(--primary) 18%, transparent); border-color: var(--primary); color: var(--primary); }
+.pm2-step small { font-size: 11px; font-weight: 600; white-space: nowrap; }
+.pm2-step.done small { color: var(--text-primary); }
+.pm2-flow-line { flex: 1; height: 2px; background: var(--border-light); margin: 0 6px 18px; min-width: 12px; }
+.pm2-meta-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; margin-bottom: 14px; }
+.pm2-meta-item { display: grid; grid-template-columns: auto 1fr; column-gap: 8px; align-items: center; padding: 10px 12px; border-radius: 12px; background: var(--surface, #fff); border: 1px solid var(--border-light); min-width: 0; }
+.pm2-meta-item i { grid-row: span 2; font-size: 18px; color: var(--primary); }
+.pm2-meta-item span { font-size: 11px; color: var(--text-secondary); }
+.pm2-meta-item b { font-size: 13px; color: var(--text-primary); overflow-wrap: anywhere; }
+.pm2-card-title { display: flex; align-items: center; gap: 8px; padding: 14px 16px; border-bottom: 1px solid var(--border); font-weight: 700; font-size: 14px; color: var(--text-primary); }
+.pm2-card-title small { margin-left: auto; font-weight: 500; color: var(--text-secondary); font-size: 12px; }
+.pm2-form-card { margin-bottom: 16px; padding: 0 0 12px; overflow: hidden; }
+.pm2-form-card .pm-form-grid, .pm2-form-card > .form-group, .pm2-form-card > .pm2-label, .pm2-form-card > .sx-chips { margin-left: 16px; margin-right: 16px; }
+.pm2-form-card .pm-form-grid { margin-top: 14px; }
+.pm2-label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+.pm2-urgency .sx-chip i { margin-right: 2px; }
+.pm2-urgency .sx-chip.on { background: var(--u); border-color: var(--u); color: #fff; }
+.pm2-hint { display: block; margin-top: 4px; font-size: 12px; color: var(--text-secondary); min-height: 14px; }
+.pm2-line-head { display: none; }
+.pm2-sup-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+.pm2-sup { display: grid !important; gap: 10px; margin: 0 !important; align-items: start; }
+.pm2-sup-head { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.pm2-sup-sub { font-size: 12px; color: var(--text-secondary); }
+.pm2-sup-lines { display: grid; gap: 3px; font-size: 12px; color: var(--text-secondary); }
+.pm2-sup-lines span { overflow-wrap: anywhere; }
+.pm2-sum-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+.pm2-panel { padding: 0 0 14px; overflow: hidden; margin: 0 !important; }
+.pm2-panel > :not(.pm2-card-title) { margin-left: 16px; margin-right: 16px; }
+.pm2-panel .pm2-bar:first-of-type, .pm2-panel .pm-status-grid, .pm2-panel .pm2-cols { margin-top: 14px; }
+.pm2-bar { margin-bottom: 10px; }
+.pm2-bar-top { display: flex; justify-content: space-between; gap: 8px; font-size: 13px; margin-bottom: 4px; }
+.pm2-bar-top span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pm2-bar-top b { color: var(--primary); white-space: nowrap; }
+.pm2-cols { display: flex; align-items: flex-end; gap: 8px; height: 150px; }
+.pm2-col { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; gap: 6px; }
+.pm2-col-bar { width: 100%; max-width: 42px; border-radius: 8px 8px 3px 3px; background: linear-gradient(180deg, var(--primary-light, var(--primary)), var(--primary)); }
+.pm2-col small { font-size: 11px; color: var(--text-secondary); }
+.pm2-late-row { display: grid; grid-template-columns: auto 1fr auto; gap: 8px; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--border-light); text-decoration: none; color: var(--text-primary); font-size: 13px; }
+.pm2-late-row span { color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pm2-late-row em { font-style: normal; color: #D93A3A; font-weight: 700; }
+.pm2-late-row:first-of-type { margin-top: 8px; }
+.pm2-note { margin-top: 12px; font-size: 12px; color: var(--text-secondary); }
+@media (max-width: 900px) { .pm2-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) {
+  .pm2-list, .pm2-sup-grid, .pm2-sum-grid { grid-template-columns: 1fr; }
+  .pm2-toolbar .btn { margin-left: 0; width: 100%; justify-content: center; }
+  .pm2-vessel-filter { flex: 1 1 100%; }
+  .pm2-kpi { padding: 12px; }
+  .pm2-kpi b { font-size: 17px; }
+  .pm2-step small { font-size: 10px; }
+  .pm2-flow { padding: 10px; }
+  .pm2-step span { width: 30px; height: 30px; }
+  .pm2-meta .pm2-total { margin-left: 0; width: 100%; }
+}
+/* uzun seçenek metinleri (tedarikçi adı + kategori) alanı sütundan taşırmasın */
+.pm-form-grid > *, .pm2-form-card .form-group { min-width: 0; }
+.pm-form-grid select, .pm-form-grid input, .pm2-form-card select, .pm2-form-card input { width: 100%; max-width: 100%; min-width: 0; text-overflow: ellipsis; }

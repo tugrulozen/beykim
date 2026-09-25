@@ -1,0 +1,253 @@
+/* ============================================
+   BAĞIMSIZ FİNANS UYGULAMASI (finance.html)
+   Tema değişkenleri variables.css'ten gelir; koyu tema .dark-theme ile otomatik uyar.
+   ============================================ */
+:root {
+  --ev-late: #D93A3A;   /* a) vadesi geçmiş kredi */
+  --ev-loan: #E08A00;   /* b) yaklaşan kredi */
+  --ev-recv: #1E9E63;   /* c) müşteri tahsilatı */
+  --ev-recv-late: #0E7A74;
+  --ev-other: #6B6FD6;
+  --ev-done: #8A94A6;
+}
+
+/* Kabuk: ekran yüksekliğinde sabit; yalnız içerik alanı kayar → sol menü her zaman tam boy */
+.fa-shell { display: grid; grid-template-columns: 248px 1fr; height: 100vh; height: 100dvh; overflow: hidden; background: var(--bg-primary); }
+.fa-side { height: 100%; overflow-y: auto; display: flex; flex-direction: column; gap: 18px; padding: 20px 14px 16px;
+  background: linear-gradient(180deg, #13294B 0%, #0B1B33 100%); color: #fff; box-shadow: 1px 0 0 rgba(255, 255, 255, .04); }
+.fa-brand { display: flex; align-items: center; gap: 11px; padding: 4px 8px 16px; border-bottom: 1px solid rgba(255, 255, 255, .1); }
+.fa-brand img { width: 40px; height: 40px; object-fit: contain; border-radius: 10px; background: #fff; padding: 3px; flex: none; }
+.fa-brand > i { font-size: 32px; }
+.fa-brand b { display: block; font-size: 15px; line-height: 1.25; letter-spacing: -.01em; }
+.fa-brand small { opacity: .65; font-size: 12px; }
+.fa-side nav { display: flex; flex-direction: column; gap: 3px; }
+.fa-nav-item { display: flex; align-items: center; gap: 11px; padding: 10px 12px; border-radius: 11px; color: inherit; text-decoration: none; background: none; border: 0; cursor: pointer; font: inherit; font-size: 14.5px; width: 100%; text-align: left; transition: background .15s, color .15s; }
+.fa-side .fa-nav-item { color: rgba(255, 255, 255, .72); }
+.fa-side .fa-nav-item:hover { background: rgba(255, 255, 255, .07); color: #fff; }
+.fa-side .fa-nav-item.active { background: rgba(255, 255, 255, .14); color: #fff; font-weight: 600; box-shadow: inset 3px 0 0 #5AA9FF; }
+.fa-nav-item i { font-size: 20px; }
+.fa-side-foot { margin-top: auto; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, .1); }
+.fa-main { min-width: 0; height: 100%; overflow-y: auto; overscroll-behavior: contain; display: flex; flex-direction: column; }
+.fa-top { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 28px; min-height: 68px;
+  background: var(--bg-card); border-bottom: 1px solid var(--border-light); }
+.fa-title { min-width: 0; }
+.fa-title small { display: block; font-size: 12px; color: var(--text-secondary); }
+.fa-top h1 { font-size: 21px; margin: 0; letter-spacing: -.01em; }
+.fa-top-acts { display: flex; align-items: center; gap: 8px; }
+.fa-ibtn { position: relative; width: 42px; height: 42px; display: grid; place-items: center; border-radius: 12px; border: 1px solid var(--border-light); background: var(--bg-card); color: var(--text-primary); cursor: pointer; transition: background .15s, border-color .15s; }
+.fa-ibtn i { font-size: 21px; }
+.fa-ibtn:hover { background: var(--bg-secondary); border-color: var(--border); }
+.fa-ibtn .notif-badge { border-color: var(--bg-card); }
+.fa-userchip { display: flex; align-items: center; gap: 10px; padding: 5px 14px 5px 5px; margin-left: 4px; border-radius: 999px; border: 1px solid var(--border-light); background: var(--bg-card); }
+.fa-userchip > b { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--primary); color: #fff; font-size: 14px; }
+.fa-userchip > span { display: flex; flex-direction: column; line-height: 1.2; }
+.fa-userchip strong { font-size: 13.5px; } .fa-userchip small { font-size: 11.5px; color: var(--text-secondary); }
+.fa-only-mobile { display: none; }
+.fa-content { padding: 22px 28px 48px; max-width: 1440px; width: 100%; margin: 0 auto; }
+.fa-bottom, .fa-drawer { display: none; }
+/* gömülü finans sayfası: kendi başlığı ve sekme çubuğu yok (menü kabukta) */
+.fin-embedded .fin-tabs { display: none; }
+.fin-embedded > .content-area { padding: 0; }
+.fin-focus { outline: 3px solid var(--primary); outline-offset: 2px; transition: outline-color 1s; }
+.fin-table tr.fin-hl td { background: color-mix(in srgb, var(--primary) 14%, transparent); font-weight: 600; }
+
+/* ortak */
+.fa-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 14px; }
+.fa-kpi { background: var(--bg-card); border: 1px solid var(--border-light); border-left: 4px solid var(--border); border-radius: 12px; padding: 10px 14px; display: flex; flex-direction: column; gap: 2px; }
+.fa-kpi small { color: var(--text-secondary); font-size: 12px; }
+.fa-kpi b { font-size: 17px; }
+.fa-kpi.ev-late { border-left-color: var(--ev-late); } .fa-kpi.ev-loan { border-left-color: var(--ev-loan); } .fa-kpi.ev-recv { border-left-color: var(--ev-recv); }
+.fa-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+.fa-noaccess { display: flex; gap: 14px; align-items: flex-start; padding: 20px; } .fa-noaccess > i { font-size: 32px; }
+
+/* ---- takvim ---- */
+.fa-cal-nav { display: flex; align-items: center; gap: 6px; }
+.shell .fa-cal-nav .icon-btn, .fa-cal-nav .icon-btn { color: var(--text-primary); background: var(--bg-secondary); border: 1px solid var(--border-color, rgba(127,127,127,.25)); } /* WMS kabuğunun beyaz üst çubuk düğmesi stili takvimde geçerli olmasın */
+.shell .fa-cal-nav .icon-btn:hover, .fa-cal-nav .icon-btn:hover { background: var(--bg-tertiary, rgba(127,127,127,.15)); color: var(--primary); }
+.fa-cal-title { font-size: 18px; margin: 0 6px; min-width: 150px; text-align: center; text-transform: capitalize; }
+.fa-legend { display: flex; flex-wrap: wrap; gap: 6px; }
+.fa-leg { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; padding: 4px 10px; border-radius: 999px; background: var(--bg-card); border: 1px solid var(--border-light); cursor: pointer; user-select: none; }
+.fa-leg input { display: none; }
+.fa-leg i { width: 10px; height: 10px; border-radius: 3px; background: var(--c); }
+.fa-leg:has(input:not(:checked)) { opacity: .45; text-decoration: line-through; }
+.ev-late { --c: var(--ev-late); } .ev-loan { --c: var(--ev-loan); } .ev-recv { --c: var(--ev-recv); } .ev-recv-late { --c: var(--ev-recv-late); } .ev-other { --c: var(--ev-other); } .ev-done { --c: var(--ev-done); }
+.fa-cal-wrap { display: grid; grid-template-columns: 1fr 340px; gap: 14px; align-items: start; }
+.fa-cal-body { padding: 10px; min-height: 300px; }
+.fa-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.fa-wd { font-size: 12px; font-weight: 600; color: var(--text-secondary); text-align: center; padding: 4px 0; }
+.fa-day { min-height: 104px; border: 1px solid var(--border-light); border-radius: 8px; padding: 4px; display: flex; flex-direction: column; gap: 3px; cursor: pointer; background: var(--bg-card); min-width: 0; }
+.fa-day.out { opacity: .45; }
+.fa-day.today { border-color: var(--primary); box-shadow: inset 0 0 0 1px var(--primary); }
+.fa-day.sel { background: color-mix(in srgb, var(--primary) 8%, var(--bg-card)); }
+.fa-dnum { font-size: 12px; font-weight: 600; color: var(--text-secondary); }
+.fa-day.today .fa-dnum { color: var(--primary); }
+.fa-ev { display: grid; grid-template-columns: auto 1fr; gap: 0 4px; align-items: center; text-align: left; width: 100%; border: 0; border-left: 3px solid var(--c); border-radius: 5px; padding: 2px 5px; font: inherit; font-size: 11px; line-height: 1.25;
+  background: color-mix(in srgb, var(--c) 13%, transparent); color: var(--text-primary); cursor: pointer; }
+.fa-ev:hover { background: color-mix(in srgb, var(--c) 24%, transparent); }
+.fa-ev i { color: var(--c); font-size: 12px; grid-row: span 2; }
+.fa-ev span { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.fa-ev b { font-weight: 600; font-size: 10.5px; }
+.fa-more { font-size: 11px; color: var(--text-secondary); padding-left: 4px; }
+.fa-agenda { padding: 14px; }
+.fa-agenda h3 { font-size: 15px; margin: 0 0 10px; text-transform: capitalize; }
+.fa-ag-row { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left; padding: 9px 10px; margin-bottom: 6px; border: 1px solid var(--border-light); border-left: 4px solid var(--c); border-radius: 10px; background: var(--bg-card); color: var(--text-primary); font: inherit; cursor: pointer; }
+.fa-ag-row:hover { background: color-mix(in srgb, var(--c) 8%, var(--bg-card)); }
+.fa-ag-row > i:first-child { color: var(--c); font-size: 20px; }
+.fa-ag-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.fa-ag-main b { font-size: 13.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fa-ag-main small { font-size: 11.5px; color: var(--text-secondary); }
+.fa-ag-amt { font-weight: 700; font-size: 13.5px; white-space: nowrap; }
+.fa-ag-amt.in { color: var(--ev-recv); } .fa-ag-amt.out { color: var(--ev-late); }
+.fa-dash .fa-agenda-mini { margin-bottom: 14px; }
+.fa-agenda-mini .fin-card-head a { font-size: 13px; color: var(--primary); text-decoration: none; }
+
+/* ---- nakit akışı ---- */
+.fa-filters { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; padding: 12px 14px; margin-bottom: 14px; }
+.fa-filters label { display: flex; flex-direction: column; gap: 3px; font-size: 12px; color: var(--text-secondary); min-width: 120px; }
+.fa-filters label.grow { flex: 1; min-width: 180px; }
+.fa-filters input, .fa-filters select { padding: 7px 9px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-input); color: var(--text-primary); font: inherit; font-size: 13.5px; }
+.fa-filter-acts { display: flex; gap: 6px; margin-left: auto; }
+.fa-cf-chart { padding: 14px; margin-bottom: 14px; }
+.fa-cf-chart .dot { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin: 0 3px 0 8px; }
+.dot.in { background: var(--ev-recv); } .dot.out { background: var(--ev-late); }
+.fa-bars { display: flex; gap: 6px; align-items: stretch; overflow-x: auto; padding-bottom: 4px; }
+.fa-bar { flex: 1 0 58px; display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 11px; }
+.fa-bar-cols { height: 130px; width: 100%; display: flex; align-items: flex-end; justify-content: center; gap: 3px; border-bottom: 1px solid var(--border-light); }
+.fa-bar-cols i { width: 40%; max-width: 18px; border-radius: 4px 4px 0 0; min-height: 1px; }
+.fa-bar-cols i.in { background: var(--ev-recv); } .fa-bar-cols i.out { background: var(--ev-late); }
+.fa-bar-cols i.fc { opacity: .45; background-image: repeating-linear-gradient(45deg, transparent 0 3px, rgba(255, 255, 255, .5) 3px 5px); }
+.fa-bar small { color: var(--text-secondary); white-space: nowrap; }
+.fa-bar em { font-style: normal; font-weight: 600; white-space: nowrap; } .fa-bar em.neg { color: var(--ev-late); }
+.fa-cf-table { padding: 0; overflow: hidden; }
+.fa-cf-table tr.fc td { font-style: italic; background: color-mix(in srgb, var(--ev-loan) 5%, transparent); }
+.fa-cf-table tr.link { cursor: pointer; } .fa-cf-table tr.link:hover td { background: color-mix(in srgb, var(--primary) 7%, transparent); }
+.fa-cf-table td.in { color: var(--ev-recv); } .fa-cf-table td.out { color: var(--ev-late); } .fa-cf-table td.neg { color: var(--ev-late); }
+.fa-cf-table code { font-size: 11.5px; white-space: nowrap; }
+
+/* ---- mobil ---- */
+@media (max-width: 900px) {
+  .fa-shell { grid-template-columns: 1fr; }
+  .fa-side { display: none; }
+  .fa-top { padding: 10px 16px; min-height: 60px; }
+  .fa-top h1 { font-size: 18px; }
+  .fa-title small { display: none; }
+  .fa-userchip { display: none; }
+  .fa-only-mobile { display: grid; }
+  .fa-ibtn { width: 40px; height: 40px; }
+  .fa-content { padding: 14px 16px calc(96px + env(safe-area-inset-bottom)); }
+  .fa-bottom { display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; background: var(--bg-card); border-top: 1px solid var(--border-light); padding: 4px 4px calc(4px + env(safe-area-inset-bottom)); }
+  .fa-bottom .fa-nav-item { flex: 1; flex-direction: column; gap: 1px; padding: 6px 2px; font-size: 11px; color: var(--text-secondary); justify-content: center; }
+  .fa-bottom .fa-nav-item.active { color: var(--primary); }
+  .fa-drawer:not([hidden]) { display: flex; position: fixed; inset: 0; z-index: 19; background: rgba(0, 0, 0, .35); align-items: flex-end; }
+  .fa-drawer-box { width: 100%; background: var(--bg-card); border-radius: 16px 16px 0 0; padding: 10px 10px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+  .fa-drawer .fa-nav-item { color: var(--text-primary); }
+  .fa-cal-wrap { grid-template-columns: 1fr; }
+  .fa-day { min-height: 56px; }
+  .fa-ev span, .fa-ev b { display: none; } /* mobilde yalnız renkli işaret; ayrıntı ajandada */
+  .fa-ev { grid-template-columns: 1fr; justify-items: center; padding: 1px; }
+  .fa-filters label { min-width: calc(50% - 5px); flex: 1; }
+  .fa-filter-acts { width: 100%; }
+}
+
+/* uzun ajanda takvimi aşağı itmesin */
+@media (min-width: 901px) { .fa-cal-wrap .fa-agenda { position: sticky; top: 84px; max-height: calc(100dvh - 104px); overflow: auto; } }
+
+/* ---- hesap menüsü ---- */
+.fa-top-acts { position: relative; }
+button.fa-userchip { font: inherit; color: var(--text-primary); cursor: pointer; text-align: left; }
+button.fa-userchip:hover { background: var(--bg-secondary); }
+.fa-userchip > i { font-size: 14px; color: var(--text-secondary); margin-left: 2px; }
+.fa-menu { position: absolute; right: 0; top: calc(100% + 8px); z-index: 30; min-width: 220px; padding: 6px; border-radius: 14px; background: var(--bg-card); border: 1px solid var(--border-light); box-shadow: var(--shadow-lg); }
+.fa-menu[hidden] { display: none; }
+.fa-menu-head { padding: 8px 10px 10px; border-bottom: 1px solid var(--border-light); margin-bottom: 4px; display: flex; flex-direction: column; }
+.fa-menu-head small { color: var(--text-secondary); font-size: 12px; }
+.fa-menu button { display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px; border: 0; border-radius: 10px; background: none; color: var(--text-primary); font: inherit; font-size: 14px; cursor: pointer; text-align: left; }
+.fa-menu button:hover { background: var(--bg-secondary); }
+.fa-menu button i { font-size: 18px; }
+
+/* giriş ekranı: finans uygulamasında sunucu adresi ayarı gösterilmez (adres tenant.json'dan gelir) */
+.fa-app .login-divider, .fa-app .server-settings-toggle, .fa-app .server-settings-panel { display: none !important; }
+
+/* ---- pano ---- */
+.fa-hello { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+.fa-hello h2 { margin: 0; font-size: 22px; letter-spacing: -.01em; }
+.fa-hello p { margin: 2px 0 0; color: var(--text-secondary); font-size: 13.5px; }
+.fa-hello-acts { display: flex; gap: 8px; flex-wrap: wrap; }
+.fa-agenda-mini .fa-ag-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 8px; }
+.fa-agenda-mini .fa-ag-row { margin: 0; }
+.fa-agenda-mini h3 { text-transform: none; margin: 0; }
+.fa-agenda-mini .fa-ag-main b { white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.fa-agenda-mini .fin-card-head a { white-space: nowrap; }
+.fa-cal-wrap > * { min-width: 0; }
+.fa-mlogo { display: none; }
+@media (max-width: 900px) {
+  .fa-cal-body { padding: 6px; }
+  .fa-grid { gap: 2px; }
+  .fa-day { min-height: 54px; padding: 3px 2px; gap: 2px; align-items: center; }
+  .fa-ev { width: 100%; max-width: 30px; min-height: 8px; border-left: 0; border-radius: 4px; background: var(--c); }
+  .fa-ev i { color: #fff; font-size: 10px; }
+  .fa-more { font-size: 9.5px; padding: 0; }
+  .fa-cal-nav { width: 100%; justify-content: space-between; }
+  .fa-cal-title { min-width: 0; font-size: 16px; }
+  .fa-legend { gap: 4px; } .fa-leg { font-size: 11.5px; padding: 3px 8px; }
+  .fa-mlogo { display: block; width: 32px; height: 32px; object-fit: contain; border-radius: 8px; background: #fff; border: 1px solid var(--border-light); padding: 2px; }
+  .fa-top { justify-content: flex-start; } .fa-top-acts { margin-left: auto; }
+}
+@media (max-width: 900px) { .fa-kpis { grid-template-columns: 1fr 1fr; gap: 8px; } .fa-kpi { padding: 9px 12px; } .fa-kpi b { font-size: 15px; } .fa-kpis > .fa-kpi:last-child:nth-child(odd) { grid-column: 1 / -1; } }
+.fa-more-filters { display: none; }
+@media (max-width: 900px) {
+  /* filtreler: tarih aralığı + düğmeler görünür, diğerleri "Filtreler" ile açılır */
+  .fa-more-filters { display: inline-flex; }
+  .fa-filters:not(.open) label:nth-of-type(n+3) { display: none; }
+  .fa-filter-acts { margin-left: 0; flex-wrap: wrap; }
+  .fa-filter-acts .btn { flex: 1 1 auto; }
+  /* tablo → kart */
+  .fa-cf-table { background: none; box-shadow: none; border: 0; }
+  .fa-cf-table .fin-tablewrap { overflow: visible; }
+  .fa-cf-table table, .fa-cf-table tbody { display: block; }
+  .fa-cf-table thead { display: none; }
+  .fa-cf-table tr { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; padding: 12px 14px; margin-bottom: 8px; border-radius: 14px; background: var(--bg-card); border: 1px solid var(--border-light); }
+  .fa-cf-table td { display: block; padding: 0 !important; border: 0 !important; background: none !important; }
+  .fa-cf-table td:empty { display: none; }
+  .fa-cf-table .c-date { grid-column: 1; grid-row: 1; font-size: 12.5px; color: var(--text-secondary); }
+  .fa-cf-table .c-amt { grid-column: 2; grid-row: 1 / span 2; align-self: center; font-weight: 700; font-size: 15px; }
+  .fa-cf-table .c-desc { grid-column: 1; }
+  .fa-cf-table .c-party { grid-column: 1 / -1; font-size: 12.5px; color: var(--text-secondary); }
+  .fa-cf-table .c-party:is(:empty) { display: none; }
+  .fa-cf-table .c-kind { grid-column: 1; }
+  .fa-cf-table .c-doc { display: none; }
+  .fa-cf-table .c-bal { grid-column: 2; font-size: 12.5px; color: var(--text-secondary); text-align: right; }
+  .fa-cf-table .c-bal b::before { content: "Bakiye "; font-weight: 400; }
+  .fa-cf-table tr.c-open { display: flex; justify-content: space-between; }
+  .fa-cf-table tr.c-open td[colspan] { display: block; }
+}
+@media (max-width: 900px) { .fa-filter-acts [data-act=reset] span { display: none; } .fa-filter-acts [data-act=reset], .fa-filter-acts #fa-cf-export { flex: 0 0 44px; padding-left: 0; padding-right: 0; justify-content: center; } }
+.fa-day, .fa-ev { overflow: hidden; }
+.fa-ev > * { min-width: 0; }
+.fa-ev b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fa-agenda h3 { text-transform: none; }
+/* dar masaüstü / tablet: ajanda takvimin altına iner, hücrelerde yalnız tutar görünür */
+@media (min-width: 901px) and (max-width: 1240px) {
+  .fa-cal-wrap { grid-template-columns: 1fr; }
+  .fa-cal-wrap .fa-agenda { position: static; max-height: none; }
+}
+@media (min-width: 901px) and (max-width: 1100px) {
+  .fa-ev { grid-template-columns: auto 1fr; } .fa-ev span { display: none; } .fa-ev i { grid-row: auto; }
+}
+/* Mobil: iç kaydırma kutusu yerine sayfanın kendisi kayar (iOS/Android'de iç içe kaydırma dokunuşu yutabiliyordu) */
+@media (max-width: 900px) {
+  .fa-shell { height: auto; min-height: 100dvh; overflow: visible; display: block; }
+  .fa-main { height: auto; overflow: visible; overscroll-behavior: auto; }
+  .fa-top { position: sticky; top: 0; }
+  .fa-bars { touch-action: pan-x pan-y; }
+}
+/* nakit akışı tablosu sayfayla birlikte kayar: iç kutunun 55vh yükseklik sınırı kaldırıldı (mobilde satırları kırpıyordu) */
+.fa-cf-table .fin-tablewrap { max-height: none; margin-top: 0; border: 0; }
+.fa-cf-table thead th { position: sticky; top: 0; z-index: 1; background: var(--bg-card); }
+@media (max-width: 900px) { .fa-cf-table { overflow: visible; } }
+/* overflow-x:hidden kaydırma kutusu oluşturup yapışkan üst çubuğu bozuyordu; clip taşmayı keser ama kutu oluşturmaz */
+body.fa-app, body.fa-app #app { overflow-x: clip; overflow-y: visible; }
+
+/* WMS Finans sayfasından takvim / nakit akışına geçiş bağlantıları */
+.fin-tabs a.fin-link { text-decoration: none; color: var(--text-secondary); }
+.fin-tabs a.fin-link:hover { color: var(--primary); }

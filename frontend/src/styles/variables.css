@@ -1,0 +1,199 @@
+/* ============================================
+   DEPO TAKİP - CSS DEĞİŞKENLERİ
+   White-label yapı için override edilebilir
+   ============================================ */
+
+:root {
+  /* ---- Ana Renkler (Katsan Teması) ---- */
+  --primary: #8A1C2A;       /* Katsan Koyu Kırmızı/Bordo */
+  --primary-light: #A82E3E; /* Daha açık Kırmızı */
+  --primary-dark: #63121C;  /* Koyu Bordo */
+  --secondary: #E3A325;     /* Altın Sarısı */
+  --secondary-light: #F2BD52;
+  --secondary-dark: #B57F13;
+  --accent: #E3A325;
+  --accent-light: #F7C948;
+
+  /* ---- Modül Renkleri ---- */
+  --color-transfer: #F5A623;
+  --color-transfer-light: #FFF3E0;
+  --color-vehicle: #00BCD4;
+  --color-vehicle-light: #E0F7FA;
+  --color-sales: #4CAF50;
+  --color-sales-light: #E8F5E9;
+  --color-purchase: #FF9800;
+  --color-purchase-light: #FFF8E1;
+  --color-stock: #9C27B0;
+  --color-stock-light: #F3E5F5;
+  --color-reports: #F44336;
+  --color-reports-light: #FFEBEE;
+  --color-settings: #607D8B;
+  --color-settings-light: #ECEFF1;
+  --color-help: #00BCD4;
+  --color-help-light: #E0F7FA;
+  --color-copilot: #7C4DFF;
+  --color-copilot-light: #EDE7F6;
+
+  /* ---- Stok Detay Renkleri ---- */
+  --color-stock-detail-header: #F5A623;
+  --color-serial-header: #2ECC71;
+
+  /* ---- Satış Türleri ---- */
+  --color-toptan: #4CAF50;
+  --color-perakende: #5C6BC0;
+  --color-ihracat: #0097A7;
+  --color-b2b: #FFA726;
+  --color-iade: #EF5350;
+
+  /* ---- Nötr Renkler ---- */
+  --bg-primary: #F5F7FA;
+  --bg-secondary: #FFFFFF;
+  --bg-card: #FFFFFF;
+  --bg-input: #F8F9FB;
+  --text-primary: #1A1D26;
+  --text-secondary: #6B7280;
+  --text-tertiary: #9CA3AF;
+  --text-inverse: #FFFFFF;
+  --border-color: #E5E7EB;
+  --border-light: #F0F1F3;
+  --divider: #F0F1F3;
+  --border: var(--border-color);
+  --bg-elevated: #F1F3F7;
+
+  /* ---- Para Birimi Renkleri ---- */
+  --color-usd: #27AE60;
+  --color-eur: #E67E22;
+  --color-try: #E74C3C;
+
+  /* ---- Durum Renkleri ---- */
+  --success: #27AE60;
+  --success-light: #E8F8F0;
+  --warning: #F2994A;
+  --warning-light: #FFF4E6;
+  --error: #EB5757;
+  --error-light: #FDE8E8;
+  --info: #2F80ED;
+  --info-light: #E8F0FD;
+
+  /* ---- Tipografi ---- */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-size-xs: 0.6875rem;   /* 11px */
+  --font-size-sm: 0.75rem;     /* 12px */
+  --font-size-base: 0.875rem;  /* 14px */
+  --font-size-md: 1rem;        /* 16px */
+  --font-size-lg: 1.125rem;    /* 18px */
+  --font-size-xl: 1.25rem;     /* 20px */
+  --font-size-2xl: 1.5rem;     /* 24px */
+  --font-size-3xl: 1.875rem;   /* 30px */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* ---- Spacing ---- */
+  --space-xs: 0.25rem;   /* 4px */
+  --space-sm: 0.5rem;    /* 8px */
+  --space-md: 0.75rem;   /* 12px */
+  --space-base: 1rem;    /* 16px */
+  --space-lg: 1.25rem;   /* 20px */
+  --space-xl: 1.5rem;    /* 24px */
+  --space-2xl: 2rem;     /* 32px */
+  --space-3xl: 2.5rem;   /* 40px */
+  --space-4xl: 3rem;     /* 48px */
+
+  /* ---- Border Radius ---- */
+  --radius-sm: 0.375rem;  /* 6px */
+  --radius-md: 0.5rem;    /* 8px */
+  --radius-lg: 0.75rem;   /* 12px */
+  --radius-xl: 1rem;      /* 16px */
+  --radius-2xl: 1.25rem;  /* 20px */
+  --radius-3xl: 1.5rem;   /* 24px */
+  --radius-full: 50%;
+
+  /* ---- Shadows ---- */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.16);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-colored: 0 4px 14px rgba(108, 99, 255, 0.25);
+
+  /* ---- Transitions ---- */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 350ms ease;
+  --transition-spring: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ---- Z-Index ---- */
+  --z-base: 1;
+  --z-header: 100;
+  --z-modal: 1000;
+  --z-toast: 2000;
+
+  /* ---- Layout ---- */
+  --header-height: 56px;
+  --safe-area-top: env(safe-area-inset-top, 0px);
+  --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  --content-max-width: 428px;
+}
+
+/* ---- Gradient Presets ---- */
+.gradient-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+}
+.gradient-login {
+  background: linear-gradient(160deg, var(--primary-dark) 0%, var(--primary) 100%);
+}
+.gradient-dashboard {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--secondary) 100%);
+}
+.gradient-transfer {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+}
+.gradient-serial {
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+}
+.gradient-stock {
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+}
+.gradient-sales {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+}
+.gradient-reports {
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
+}
+.gradient-copilot {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+}
+
+/* ============================================
+   DARK THEME VARIABLES
+   ============================================ */
+body.dark-theme {
+  --bg-primary: #121212;
+  --bg-secondary: #1E1E1E;
+  --bg-card: #1E1E1E;
+  --bg-input: #2D2D2D;
+  
+  --text-primary: #F3F4F6;
+  --text-secondary: #D1D5DB;
+  --text-tertiary: #9CA3AF;
+  
+  --border-color: #374151;
+  --border: #374151;
+  --bg-elevated: #2A2A2A;
+  --border-light: #2D3748;
+  --divider: #2D3748;
+  
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
