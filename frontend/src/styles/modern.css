@@ -973,3 +973,15 @@ body.brand-accents .stock-chip[style*="--color-stock"] { background: var(--prima
 .sd-add-title { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; margin-bottom: 10px; color: var(--text-primary); }
 .sx-intro { display: flex; align-items: flex-start; gap: 8px; padding: 10px 14px; margin-bottom: 12px; border-radius: 12px; font-size: 13px; color: var(--text-secondary); background: color-mix(in srgb, var(--primary) 6%, transparent); border: 1px solid color-mix(in srgb, var(--primary) 14%, transparent); }
 .sx-intro i { color: var(--primary); font-size: 16px; margin-top: 1px; }
+/* Stok kartı alt bölümü: kartın üst kısmıyla aynı iç boşluk (kenara yapışmaz) */
+.stock-result-card .sd-meta { display: flex; align-items: flex-start; gap: 6px; padding: 0 var(--space-lg); margin-bottom: 8px; font-size: 12.5px; line-height: 1.5; color: var(--text-secondary); }
+.stock-result-card .sd-meta i { margin-top: 3px; flex: none; }
+.stock-result-card .sd-add { margin-top: 8px; padding: var(--space-base) var(--space-lg) var(--space-lg); border-top: 1px solid var(--border-light); }
+@media (min-width: 768px) { .stock-result-card .sd-add-row { max-width: 440px; } }
+.stock-result-card .sd-add-row .sd-qty { width: 110px; min-width: 0; flex: 0 0 110px; }
+.stock-result-card .sd-add-row .btn { min-width: 0; width: auto; flex: 1 1 0; }
+/* Gemiye Sevkiyat: uzun seçenek adları (gemi / ambar / ürün) alanı kartın dışına taşırmasın */
+.sx-grid > *, .sx-add > *, .sx-field, .sx-card .input-field, .sx-card .barcode-input-row .input-field { min-width: 0; }
+.sx-card .input-field select, .sx-card .input-field input { width: 100%; min-width: 0; text-overflow: ellipsis; }
+.sx-card .barcode-input-row { min-width: 0; }
+.sx-card .barcode-input-row .camera-btn { flex: none; }

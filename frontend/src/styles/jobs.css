@@ -321,3 +321,31 @@ body.dark-theme .jt-link { color: color-mix(in srgb, var(--primary-light) 55%, #
 /* Ana sayfa zili: iş takip bağlantısı */
 .bell-pop .bell-link { display: inline-block; margin-top: 6px; font-size: 12.5px; font-weight: 600; color: var(--primary); cursor: pointer; }
 .bell-pop h4 + ul + .bell-link + h4 { margin-top: 12px; }
+
+/* ===== Roller (kart) ve birim hiyerarşisi ===== */
+.jt-role-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; margin-bottom: 18px; }
+.jt-role-card { display: flex; flex-direction: column; gap: 6px; text-align: left; padding: 14px 16px; border-radius: 16px; background: var(--bg-card); border: 1px solid var(--border-light); cursor: pointer; transition: border-color 160ms, box-shadow 160ms; min-width: 0; }
+.jt-role-card:hover:not(:disabled) { border-color: var(--primary); box-shadow: var(--shadow-card); }
+.jt-role-card:disabled { cursor: default; opacity: .75; }
+.jt-role-card-head { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.jt-role-card-head i { font-size: 20px; color: var(--primary); flex: none; }
+.jt-role-card-head b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.jt-role-card small { color: var(--text-secondary); font-size: 12.5px; line-height: 1.4; }
+.jt-role-card-foot { margin-top: auto; font-size: 12px; color: var(--text-tertiary); display: inline-flex; align-items: center; gap: 5px; }
+.jt-role-tag { margin-left: auto; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: color-mix(in srgb, var(--primary) 12%, transparent); color: var(--primary); }
+.jt-perm-list { border: 1px solid var(--border-light); border-radius: 12px; padding: 10px 14px; display: grid; gap: 8px; margin: 4px 0 12px; }
+.jt-perm-list legend { padding: 0 6px; font-weight: 600; font-size: 13px; }
+
+.jt-unit-tree, .jt-unit-tree ul { list-style: none; margin: 0; padding: 0; }
+.jt-unit-tree { margin-bottom: 18px; display: grid; gap: 8px; }
+.jt-unit-tree ul { margin-top: 8px; padding-left: 22px; border-left: 2px solid var(--border-light); display: grid; gap: 8px; }
+.jt-unit-row { width: 100%; display: flex; align-items: center; gap: 10px; text-align: left; padding: 12px 14px; border-radius: 14px; background: var(--bg-card); border: 1px solid var(--border-light); cursor: pointer; transition: border-color 160ms; }
+.jt-unit-row:hover { border-color: var(--primary); }
+.jt-unit-row > i { font-size: 20px; color: var(--primary); flex: none; }
+.jt-unit-main { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.jt-unit-main small { color: var(--text-secondary); font-size: 12.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.jt-unit-count { flex: none; display: inline-flex; align-items: center; gap: 4px; font-size: 12.5px; font-weight: 600; color: var(--text-secondary); }
+.jt-unit-members { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 0 0 30px; }
+.jt-unit-member { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px 4px 4px; border-radius: 999px; background: var(--bg-elevated, var(--bg-primary)); font-size: 12.5px; }
+.jt-unit-member small { display: block; color: var(--text-tertiary); font-size: 11px; }
+.jt-unit-note { display: flex; align-items: center; gap: 6px; margin: -8px 0 16px; }

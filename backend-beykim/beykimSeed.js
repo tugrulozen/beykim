@@ -149,7 +149,7 @@ const USERS = [
 // Operasyon süreçleri (İş Takip modülü bu kurulumda menüde kapalıdır; açılırsa hazır olsun): [id, sıra, kod, ad, bölüm, gün, renk, ikon]
 const PROCESSES = [
   ['PR1', 1, 'TALEP', 'Gemi Talebi & Onay', 'Teknik', 1, '#64748B', 'ph-clipboard-text'],
-  ['PR2', 2, 'SATIN', 'Satın Alma & Tedarik', 'Satın Alma', 5, '#0EA5E9', 'ph-anchor'],
+  ['PR2', 2, 'SATIN', 'Satın Alma', 'Satın Alma', 5, '#0EA5E9', 'ph-anchor'],
   ['PR3', 3, 'KABUL', 'Mal Kabul & Kontrol', 'Depo', 1, '#8B5CF6', 'ph-package'],
   ['PR4', 4, 'HAZIR', 'Ambar Hazırlık & Paketleme', 'Depo', 1, '#F97316', 'ph-stack'],
   ['PR5', 5, 'SEVK', 'Gemiye Sevkiyat', 'Sevkiyat', 1, '#2563EB', 'ph-boat'],
@@ -195,6 +195,9 @@ module.exports.seedBeykim = function seedBeykim({ run, all, one, save, hashPassw
     uid[username] = i + 1;
     creds.push({ username, name, role, password });
   });
+  // birim yöneticileri
+  [['U1', 'admin'], ['U2', 'murat.ozkan'], ['U3', 'selin.kurt'], ['U4', 'deniz.aydin'], ['U5', 'hakan.yildiz'], ['U6', 'serkan.bulut'], ['U7', 'canan.ergin']]
+    .forEach(([id, u]) => uid[u] && run(`UPDATE jt_units SET managerId = ? WHERE id = ?`, [uid[u], id]));
 
   // ---------- ürünler ve ambar stokları ----------
   PRODUCTS.forEach((p) => run(`INSERT INTO products (id, code, barcode, name, unit, stock, price, category) VALUES (?,?,?,?,?,?,?,?)`, p));

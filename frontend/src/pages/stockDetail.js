@@ -219,12 +219,12 @@ export default function StockDetailPage() {
             </span>
             ${whId ? `<span class="stock-chip" style="background: var(--success); color:white;"><i class="ph ph-warehouse"></i> ${whName}: ${qtyIn(stock.id, whId)} ${esc(stock.unit)}</span>` : ''}
           </div>
-          ${!whId ? `<div style="margin-top:8px; font-size:12px; color:var(--text-secondary);"><i class="ph ph-warehouse"></i> ${
+          ${!whId ? `<div class="sd-meta"><i class="ph ph-warehouse"></i> <span>${
             balances.filter(b => b.productId === stock.id).map(b => `${esc(b.warehouseName)}: <b>${b.qty}</b>`).join(' &nbsp;•&nbsp; ') || 'Depo kaydı yok'
-          }</div>` : ''}
-          ${stock.price ? `<div style="margin-top:8px; font-size:13px; color:var(--text-secondary);"><i class="ph ph-currency-circle-dollar"></i> Birim Fiyat: ${stock.price.toLocaleString('tr-TR')} ₺</div>` : ''}
-          
-          <div style="margin-top:15px; border-top: 1px solid var(--border-color); padding-top:15px;">
+          }</span></div>` : ''}
+          ${stock.price ? `<div class="sd-meta"><i class="ph ph-currency-circle-dollar"></i> <span>Birim Fiyat: ${stock.price.toLocaleString('tr-TR')} ₺</span></div>` : ''}
+
+          <div class="sd-add">
             <div class="sd-add-title"><i class="ph ph-package"></i> Mal Kabul / Stok Ekle</div>
             <div class="sd-add-row">
               <input type="number" id="add-qty-${stock.id}" class="sd-qty" value="1" min="1" inputmode="numeric" aria-label="Eklenecek miktar" />
